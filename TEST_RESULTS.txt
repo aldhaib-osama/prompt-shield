@@ -1,1 +1,35 @@
+TEST RESULTS - prompt-shield
+Recorded by the builder (AI assistant), not by Dahoba.
+Date: 2026-11-22. Python: Python 3.10.12. OS: Linux 6.1.189+ x86_64.
 
+$ python3 -m unittest discover -s tests -v
+Ran 26 tests in 0.326s
+
+OK
+
+$ python3 -m promptshield.cli evaluate
+corpus: 52 samples (32 attacks, 20 benign)
+true positives:  32
+false positives: 0
+true negatives:  20
+false negatives: 0
+precision: 1.000  recall: 1.000
+
+$ python3 -m promptshield.cli mutations
+identity     detected 32/32 (100.0%)
+zero_width   detected 32/32 (100.0%)
+base64_wrap  detected 29/32 (90.6%)
+confusables  detected 29/32 (90.6%)
+mixed_case   detected 31/32 (96.9%)
+spaced       detected 21/32 (65.6%)
+
+$ python3 -m promptshield.cli batch examples/batch.jsonl
+email-1: clean (score 0, 0 findings)
+page-2: blocked (score 5, 2 findings)
+blob-3: blocked (score 4, 1 findings)
+chat-4: clean (score 0, 0 findings)
+exit code: 3
+
+$ python -m pip install .   (in a fresh venv with pip/setuptools/wheel)
+Installed successfully; the installed `promptshield` command runs and returns
+the blocked verdict on the example attack above.
